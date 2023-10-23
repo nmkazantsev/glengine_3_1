@@ -1,12 +1,10 @@
 package com.manateam.glengine3.engine.main.animator;
 
 import static com.manateam.glengine3.OpenGLRenderer.pageMillis;
-import static com.manateam.glengine3.utils.Utils.contactArray;
 import static com.manateam.glengine3.utils.Utils.popFromArray;
 
 import com.manateam.glengine3.engine.main.engine_object.EnObject;
 
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -19,14 +17,10 @@ public class Animator {
             PIVOT_ROTATION = 2,
             LINEAR = 0,
             SIGMOID = 1;
-    private static HashMap<EnObject, Animation[]> animQueue;
-
-    public static void initialize() {
-        animQueue = new HashMap<>();
-    }
+    private static Animation[] animQueue;
 
     // template constructor itself, uses predefined indexes instead of manual function specifying
-    public static void addAnimation(EnObject target, int tfType, float[] args, int vfType, float duration, float vfa, long st) {
+    public void addAnimation(int tfType, float[] args, int vfType, float duration, float vfa, long st) {
         Function<Animation, float[]> tf = null;
         Function<float[], Float> vf = null;
 
@@ -52,7 +46,7 @@ public class Animator {
                 break;
         }
 
-        new Animation(target, tf, args, vf, duration, vfa, st);
+        listAnimation(new Animation(tf, args, vf, duration, vfa, st));
     }
 
     // adds animation without templates, every function has to be specified by hand
@@ -86,32 +80,32 @@ public class Animator {
         5000
     );
      */
-    public static void addAnimation(EnObject target, Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st) {
-        new Animation(target, tf, args, vf, duration, vfa, st);
+    public void addAnimation(Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st) {
+        listAnimation(new Animation(tf, args, vf, duration, vfa, st));
     }
 
-    private static void listAnimation(Animation animation, EnObject target) {
-        if (!animQueue.containsKey(target)) {
-            animQueue.put(target, new Animation[]{animation});
+    private void listAnimation(Animation animation) {
+        if (animQueue == null) {
+            animQueue = new Animation[]{animation};
             return;
         }
-        Animation[] a = animQueue.get(target);
-        if (a == null) animQueue.replace(target, new Animation[]{animation});
-        else animQueue.replace(target, contactArray(a, new Animation[]{animation}));
+        Animation[] b = new Animation[animQueue.length + 1];
+        b[animQueue.length] = animation;
+        animQueue = b;
     }
 
-    public static void animate(EnObject target) {
+    public void animate(EnObject target) {
         // getting targets space attributes
         float[] b = target.getSpaceAttrs();
         // getting array related to the object and going though it
-        for (Animation animation : Objects.requireNonNull(animQueue.get(target))) {
+        for (Animation animation : Objects.requireNonNull(animQueue)) {
             if (!animation.isDead) {
                 // giving attributes to the animator and getting computation result
                 animation.setAttrs(b);
                 b = animation.getAnimMatrix();
             } else {
                 // deleting "dead" animation
-                animQueue.replace(target, popFromArray(animQueue.get(target), animation));
+                animQueue = popFromArray(animQueue, animation);
             }
         }
         // writing affected attributes back
@@ -131,7 +125,7 @@ public class Animator {
         private float dtBuffer, dt; // buffer for proper dt computing and dt itself (can't be local)
         private float[] attrs; // attributes like position and rotation
 
-        private Animation(EnObject target, Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st) {
+        private Animation(Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st) {
             long c = pageMillis();
             if (st <= c) {
                 startTiming = c;
@@ -146,7 +140,6 @@ public class Animator {
             this.duration = duration;
             this.vfa = vfa;
             this.dtBuffer = 0;
-            listAnimation(this, target);
             isDead = false;
         }
 

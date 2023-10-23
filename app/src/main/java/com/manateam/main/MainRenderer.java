@@ -1,7 +1,6 @@
 package com.manateam.main;
 
 import static android.opengl.GLES20.glClearColor;
-import static com.manateam.glengine3.OpenGLRenderer.fps;
 import static com.manateam.glengine3.OpenGLRenderer.mMatrix;
 import static com.manateam.glengine3.OpenGLRenderer.pageMillis;
 import static com.manateam.glengine3.engine.config.MainConfigurationFunctions.applyCameraSettings;
@@ -10,23 +9,20 @@ import static com.manateam.glengine3.engine.config.MainConfigurationFunctions.ap
 import static com.manateam.glengine3.engine.main.shaders.Shader.applyShader;
 import static com.manateam.glengine3.utils.Utils.kx;
 import static com.manateam.glengine3.utils.Utils.ky;
-import static com.manateam.glengine3.utils.Utils.millis;
 import static com.manateam.glengine3.utils.Utils.x;
 import static com.manateam.glengine3.utils.Utils.y;
 
 import com.example.gl_engine_3_1.R;
 import com.manateam.glengine3.GamePageInterface;
 import com.manateam.glengine3.OpenGLRenderer;
-import com.manateam.glengine3.engine.main.animator.Animator;
 import com.manateam.glengine3.engine.main.camera.CameraSettings;
 import com.manateam.glengine3.engine.main.camera.ProjectionMatrixSettings;
 import com.manateam.glengine3.engine.main.engine_object.EnObject;
-import com.manateam.glengine3.engine.main.frameBuffers.FrameBuffer;
+import com.manateam.glengine3.engine.main.holder.Holder;
 import com.manateam.glengine3.engine.main.shaders.Shader;
 import com.manateam.glengine3.engine.main.verticles.Poligon;
 import com.manateam.glengine3.engine.main.verticles.Shape;
 import com.manateam.glengine3.engine.main.verticles.SimplePoligon;
-import com.manateam.glengine3.engine.main.verticles.SkyBox;
 import com.manateam.glengine3.maths.Point;
 import com.manateam.main.adaptors.MainShaderAdaptor;
 import com.manateam.main.redrawFunctions.MainRedrawFunctions;
@@ -42,7 +38,6 @@ public class MainRenderer implements GamePageInterface {
 
     //  private FrameBuffer frameBuffer;
     public MainRenderer() {
-        Animator.initialize();
 
         shader = new Shader(R.raw.vertex_shader, R.raw.fragment_shader, this, new MainShaderAdaptor());
         fpsPolygon = new Poligon(MainRedrawFunctions::redrawFps, true, 1, this);
@@ -73,6 +68,7 @@ public class MainRenderer implements GamePageInterface {
         applyCameraSettings(cameraSettings);
         applyProjectionMatrix(projectionMatrixSettings);
         // connectFrameBuffer(frameBuffer.getFrameBuffer());
+        Holder.globalProcess();
         s.prepareAndDraw();
 
         fpsPolygon.setRedrawNeeded(true);
