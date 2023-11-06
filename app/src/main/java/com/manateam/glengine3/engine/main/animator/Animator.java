@@ -90,6 +90,7 @@ public class Animator {
             return;
         }
         Animation[] b = new Animation[animQueue.length + 1];
+        System.arraycopy(animQueue, 0, b, 0, animQueue.length);
         b[animQueue.length] = animation;
         animQueue = b;
     }
