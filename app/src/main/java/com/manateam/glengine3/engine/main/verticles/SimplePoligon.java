@@ -1,14 +1,14 @@
 package com.manateam.glengine3.engine.main.verticles;
 
-import static com.manateam.glengine3.utils.Utils.cos;
-import static com.manateam.glengine3.utils.Utils.sin;
-import static com.manateam.glengine3.utils.Utils.sq;
-import static com.manateam.glengine3.utils.Utils.sqrt;
+import static com.manateam.glengine3.utils.MathUtils.cos;
+import static com.manateam.glengine3.utils.MathUtils.sin;
+import static com.manateam.glengine3.utils.MathUtils.sq;
+import static com.manateam.glengine3.utils.MathUtils.sqrt;
 
 import com.manateam.glengine3.GamePageInterface;
 import com.manateam.glengine3.engine.main.images.PImage;
 import com.manateam.glengine3.maths.Point;
-import com.manateam.glengine3.utils.Utils;
+import com.manateam.glengine3.utils.MathUtils;
 
 import java.util.List;
 import java.util.function.Function;
@@ -41,7 +41,7 @@ public class SimplePoligon extends Poligon {
         x += a / 2;//x,y  - теперь центр прямоугльника
         y += b / 2;
         for (int i = 0; i < ver.length; i++) {
-            float d = Utils.getDirection(x, y, ver[i][0], ver[i][1]) + r;//rotate them
+            float d = MathUtils.getDirection(x, y, ver[i][0], ver[i][1]) + r;//rotate them
             float dist = sqrt(sq(x - ver[i][0]) + sq(y - ver[i][1]));
             ver[i][0] = x + dist * cos(d);
             ver[i][1] = y + dist * sin(d);

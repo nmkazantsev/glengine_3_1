@@ -1,6 +1,6 @@
 package com.manateam.glengine3.maths;
 
-import com.manateam.glengine3.utils.Utils;
+import com.manateam.glengine3.utils.MathUtils;
 
 public class Point {
     public float x, y, z;
@@ -17,7 +17,7 @@ public class Point {
     }
 
     public float getDistanceToPoint(Point p) {
-        return Utils.sqrt(Utils.sq(p.x - this.x) + Utils.sq(p.y - this.y) + Utils.sq(this.z - p.z));
+        return MathUtils.sqrt(MathUtils.sq(p.x - this.x) + MathUtils.sq(p.y - this.y) + MathUtils.sq(this.z - p.z));
     }
 
     public static Vec3 normal(Point A, Point B, Point C) {

@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.manateam.glengine3.utils.Utils;
+import com.manateam.glengine3.utils.EngineUtils;
 
 public class MainActivity extends Activity implements View.OnTouchListener {
     static float[][] touchEvents = new float[100][22];//[x ,y,length]*10+ type(0 - started , 1 - moved , 2 - eneded)
@@ -59,14 +59,14 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     protected void onPause() {
         super.onPause();
         glSurfaceView.onPause();
-        Utils.onPause();
+        EngineUtils.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         glSurfaceView.onResume();
-        Utils.onResume();
+        EngineUtils.onResume();
     }
 
     private boolean supportES2() {

@@ -2,7 +2,7 @@ package com.manateam.glengine3.engine.main.animator;
 
 import static com.manateam.glengine3.maths.Vec3.normalize;
 import static com.manateam.glengine3.utils.Utils.contactArray;
-import static com.manateam.glengine3.utils.Utils.pow;
+import static com.manateam.glengine3.utils.MathUtils.pow;
 
 import com.manateam.glengine3.maths.Vec3;
 

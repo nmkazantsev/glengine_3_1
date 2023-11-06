@@ -1,7 +1,7 @@
 package com.manateam.glengine3.maths;
 
-import static com.manateam.glengine3.utils.Utils.sq;
-import static com.manateam.glengine3.utils.Utils.sqrt;
+import static com.manateam.glengine3.utils.MathUtils.sq;
+import static com.manateam.glengine3.utils.MathUtils.sqrt;
 import static java.lang.Math.acos;
 import static java.lang.Math.tan;
 

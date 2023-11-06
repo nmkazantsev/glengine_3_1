@@ -1,6 +1,6 @@
 package com.manateam.main.redrawFunctions;
 
-import static com.manateam.glengine3.utils.Utils.loadImage;
+import static com.manateam.glengine3.utils.EngineUtils.loadImage;
 
 import com.manateam.glengine3.engine.main.images.PImage;
 

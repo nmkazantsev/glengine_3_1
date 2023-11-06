@@ -1,9 +1,7 @@
 package com.manateam.main;
 
 import static android.opengl.GLES20.glClearColor;
-import static com.manateam.glengine3.OpenGLRenderer.fps;
 import static com.manateam.glengine3.OpenGLRenderer.mMatrix;
-import static com.manateam.glengine3.OpenGLRenderer.pageMillis;
 import static com.manateam.glengine3.engine.config.MainConfigurationFunctions.applyCameraSettings;
 import static com.manateam.glengine3.engine.config.MainConfigurationFunctions.applyMatrix;
 import static com.manateam.glengine3.engine.config.MainConfigurationFunctions.applyProjectionMatrix;
@@ -12,7 +10,7 @@ import static com.manateam.glengine3.engine.main.shaders.Shader.applyShader;
 import static com.manateam.glengine3.utils.Utils.kx;
 import static com.manateam.glengine3.utils.Utils.ky;
 import static com.manateam.glengine3.utils.Utils.map;
-import static com.manateam.glengine3.utils.Utils.millis;
+import static com.manateam.glengine3.utils.EngineUtils.millis;
 import static com.manateam.glengine3.utils.Utils.x;
 import static com.manateam.glengine3.utils.Utils.y;
 

@@ -12,13 +12,12 @@ import static com.manateam.glengine3.MainActivity.touchEvents;
 import static com.manateam.glengine3.MainActivity.touchEventsNumb;
 import static com.manateam.glengine3.MainActivity.touches;
 import static com.manateam.glengine3.engine.config.MainConfigurationFunctions.resetTranslateMatrix;
-import static com.manateam.glengine3.utils.Utils.delay;
 import static com.manateam.glengine3.utils.Utils.kx;
 import static com.manateam.glengine3.utils.Utils.ky;
-import static com.manateam.glengine3.utils.Utils.millis;
-import static com.manateam.glengine3.utils.Utils.min;
+import static com.manateam.glengine3.utils.EngineUtils.millis;
+import static com.manateam.glengine3.utils.MathUtils.min;
 import static com.manateam.glengine3.utils.Utils.parseInt;
-import static com.manateam.glengine3.utils.Utils.programStartTime;
+import static com.manateam.glengine3.utils.EngineUtils.programStartTime;
 import static com.manateam.glengine3.utils.Utils.x;
 import static com.manateam.glengine3.utils.Utils.y;
 
@@ -35,8 +34,6 @@ import com.manateam.glengine3.engine.main.textures.Texture;
 import com.manateam.glengine3.engine.main.verticles.VectriesShapesManager;
 import com.manateam.glengine3.utils.Utils;
 import com.manateam.main.MainRenderer;
-
-import org.w3c.dom.Text;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

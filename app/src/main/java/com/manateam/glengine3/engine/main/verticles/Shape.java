@@ -13,7 +13,7 @@ import static android.opengl.GLES20.glDrawArrays;
 import static android.opengl.GLES20.glEnable;
 import static android.opengl.GLES20.glUniform1i;
 
-import static com.manateam.glengine3.utils.Utils.loadImage;
+import static com.manateam.glengine3.utils.EngineUtils.loadImage;
 
 import android.opengl.GLES20;
 import android.opengl.GLUtils;

@@ -17,7 +17,7 @@ import com.manateam.glengine3.GamePageInterface;
 import com.manateam.glengine3.OpenGLRenderer;
 import com.manateam.glengine3.engine.main.camera.CameraSettings;
 import com.manateam.glengine3.engine.main.camera.ProjectionMatrixSettings;
-import com.manateam.glengine3.engine.main.engine_object.EnObject;
+import com.manateam.glengine3.engine.main.engine_object.sealObj;
 import com.manateam.glengine3.engine.main.holder.Holder;
 import com.manateam.glengine3.engine.main.shaders.Shader;
 import com.manateam.glengine3.engine.main.verticles.Poligon;
@@ -34,7 +34,7 @@ public class MainRenderer implements GamePageInterface {
     private final ProjectionMatrixSettings projectionMatrixSettings;
     private final CameraSettings cameraSettings;
     private static SimplePoligon simplePolygon;
-    private final EnObject s;
+    private final sealObj s;
 
     //  private FrameBuffer frameBuffer;
     public MainRenderer() {
@@ -50,7 +50,7 @@ public class MainRenderer implements GamePageInterface {
             simplePolygon = new SimplePoligon(MainRedrawFunctions::redrawBox2, true, 0, null);
             simplePolygon.redrawNow();
         }
-        s = new EnObject(new Shape("cube.obj", "cube.png", this));
+        s = new sealObj(new Shape("cube.obj", "cube.png", this));
         s.animMotion(1f, 0f, -1f, 1000, 0);
         s.animMotion(0.f, 3f, 0f, 1000, 0);
         s.animRotation(0f, 0f, 90f, 3000, 0);

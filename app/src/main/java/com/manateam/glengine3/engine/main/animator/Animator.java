@@ -1,10 +1,16 @@
 package com.manateam.glengine3.engine.main.animator;
 
 import static com.manateam.glengine3.OpenGLRenderer.pageMillis;
-import static com.manateam.glengine3.utils.Utils.popFromArray;
 
-import com.manateam.glengine3.engine.main.engine_object.EnObject;
+import android.widget.AdapterView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.manateam.glengine3.engine.main.engine_object.sealObj;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -17,7 +23,8 @@ public class Animator {
             PIVOT_ROTATION = 2,
             LINEAR = 0,
             SIGMOID = 1;
-    private static Animation[] animQueue;
+    private Hashtable<Long, Animation> animQueue;
+    private long lastUnusedIndex;
 
     // template constructor itself, uses predefined indexes instead of manual function specifying
     public void addAnimation(int tfType, float[] args, int vfType, float duration, float vfa, long st) {
@@ -46,7 +53,7 @@ public class Animator {
                 break;
         }
 
-        listAnimation(new Animation(tf, args, vf, duration, vfa, st));
+        listAnimation(new Animation(tf, args, vf, duration, vfa, st, lastUnusedIndex));
     }
 
     // adds animation without templates, every function has to be specified by hand
@@ -81,32 +88,35 @@ public class Animator {
     );
      */
     public void addAnimation(Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st) {
-        listAnimation(new Animation(tf, args, vf, duration, vfa, st));
+        listAnimation(new Animation(tf, args, vf, duration, vfa, st, lastUnusedIndex));
     }
 
     private void listAnimation(Animation animation) {
         if (animQueue == null) {
-            animQueue = new Animation[]{animation};
+            animQueue = new Hashtable<>();
+            animQueue.put(lastUnusedIndex, animation);
+            lastUnusedIndex++;
             return;
         }
-        Animation[] b = new Animation[animQueue.length + 1];
-        System.arraycopy(animQueue, 0, b, 0, animQueue.length);
-        b[animQueue.length] = animation;
-        animQueue = b;
+        animQueue.put(lastUnusedIndex, animation);
+        lastUnusedIndex++;
     }
 
-    public void animate(EnObject target) {
+    public void animate(sealObj target) {
         // getting targets space attributes
         float[] b = target.getSpaceAttrs();
         // getting array related to the object and going though it
-        for (Animation animation : Objects.requireNonNull(animQueue)) {
+        Enumeration<Long> keys = animQueue.keys();
+        while(keys.hasMoreElements()) {
+            Long key = keys.nextElement();
+            Animation animation = animQueue.get(key);
             if (!animation.isDead) {
                 // giving attributes to the animator and getting computation result
                 animation.setAttrs(b);
                 b = animation.getAnimMatrix();
             } else {
                 // deleting "dead" animation
-                animQueue = popFromArray(animQueue, animation);
+                animQueue.remove(key);
             }
         }
         // writing affected attributes back
@@ -125,8 +135,9 @@ public class Animator {
         private final long startTiming; // global start timing in millis
         private float dtBuffer, dt; // buffer for proper dt computing and dt itself (can't be local)
         private float[] attrs; // attributes like position and rotation
+        private final long index;
 
-        private Animation(Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st) {
+        private Animation(Function<Animation, float[]> tf, float[] args, Function<float[], Float> vf, float duration, float vfa, long st, long i) {
             long c = pageMillis();
             if (st <= c) {
                 startTiming = c;
@@ -142,6 +153,7 @@ public class Animator {
             this.vfa = vfa;
             this.dtBuffer = 0;
             isDead = false;
+            index = i;
         }
 
         public float[] getAttrs() {
