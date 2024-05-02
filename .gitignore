@@ -10,6 +10,7 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+/seal_engine/build
 /captures
 .externalNativeBuild
 .cxx
@@ -219,3 +220,4 @@ local.properties
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_01_05_2024__22_12__Changes_.xml
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_01_05_2024,_22_12_[Changes]/shelved.patch
 /.idea/deploymentTargetSelector.xml
+/seal_engine/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/Adaptor.class.uniqueId7
