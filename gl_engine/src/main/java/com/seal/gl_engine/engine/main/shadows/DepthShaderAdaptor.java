@@ -11,9 +11,9 @@ import static android.opengl.GLES20.glVertexAttribPointer;
 
 import android.opengl.GLES30;
 
-import com.seal.seal_engine.engine.main.shaders.Adaptor;
-import com.seal.seal_engine.engine.main.vertex_bueffer.VertexBuffer;
-import com.seal.seal_engine.engine.main.verticles.Face;
+import com.seal.gl_engine.engine.main.shaders.Adaptor;
+import com.seal.gl_engine.engine.main.vertex_bueffer.VertexBuffer;
+import com.seal.gl_engine.engine.main.verticles.Face;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -49,6 +49,7 @@ public class DepthShaderAdaptor extends Adaptor {
         glEnableVertexAttribArray(aPositionLocation);
         return vertexesNumber;
     }
+
 
     private void loadDataToBuffer(float[] vertices, int bufferIndex, VertexBuffer vertexBuffer) {
         FloatBuffer vertexData = ByteBuffer
@@ -112,6 +113,11 @@ public class DepthShaderAdaptor extends Adaptor {
     @Override
     public int getNormalTextureLocation() {
         return -1;
+    }
+
+    @Override
+    public int getNormalMapEnableLocation() {
+        return 0;
     }
 
     @Override
