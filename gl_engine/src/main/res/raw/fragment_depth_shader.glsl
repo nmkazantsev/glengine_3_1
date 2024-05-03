@@ -7,5 +7,5 @@ void main()
 {
     // FragColor = texture(textureSamp, TexCoord);
 
-    FragColor = vec4(vec3(0.0), 1.0);
+    FragColor = vec4(gl_FragCoord.w,0.0,0.0, 1.0);
 }

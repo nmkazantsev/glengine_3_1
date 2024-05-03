@@ -85,11 +85,10 @@ public class SecondRenderer implements GamePageInterface {
         cameraSettings.centerZ = x1;
 
         glClearColor(1f, 1, 1, 1);
-        material.apply();
 
         directedShadow.startRenderingDepthPass();
         applyCameraSettings(cameraSettings);
-        applyProjectionMatrix(projectionMatrixSettings);
+        applyProjectionMatrix(projectionMatrixSettings, false);
         mMatrix = resetTranslateMatrix(mMatrix);
         applyMatrix(mMatrix);
         s.prepareAndDraw();

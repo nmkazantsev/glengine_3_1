@@ -20,7 +20,7 @@ public class DirectedShadow {
     public DirectedShadow(GamePageInterface gamePageInterface, int shadowWidth, int shadowHeight) {
         this.creator = gamePageInterface;
         depthBuffer = createFrameBuffer(shadowWidth, shadowHeight, creator);
-        depthShader = new Shader(R.raw.vertex_shader, R.raw.fragment_shader, creator, new MainShaderAdaptor());
+        depthShader = new Shader(R.raw.vertex_shader, R.raw.fragment_depth_shader, creator, new MainShaderAdaptor());
     }
 
     public void startRenderingDepthPass() {
