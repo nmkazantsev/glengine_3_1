@@ -95,7 +95,7 @@ public class Poligon implements VerticleSet, DrawableShape {
                         new Point(textCoords[1][0], textCoords[1][1]),
                         new Point(textCoords[2][0], textCoords[2][1]),
                 },
-                new Point(0, 0, 1));
+                new Point(0, 0, 1));//normal
         face2 = new Face(
                 new Point[]{
                 new Point(vertexes[1][0], vertexes[1][1], vertexes[1][2]),

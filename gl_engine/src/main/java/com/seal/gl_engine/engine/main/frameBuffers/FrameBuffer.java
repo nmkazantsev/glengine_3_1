@@ -10,10 +10,10 @@ import static android.opengl.GLES20.glDrawArrays;
 
 import android.opengl.GLES20;
 
+import com.seal.gl_engine.GamePageInterface;
 import com.seal.gl_engine.engine.main.shaders.Shader;
 import com.seal.gl_engine.engine.main.verticles.DrawableShape;
 import com.seal.gl_engine.engine.main.verticles.Face;
-import com.seal.gl_engine.GamePageInterface;
 import com.seal.gl_engine.maths.Point;
 
 import java.lang.ref.WeakReference;
@@ -94,14 +94,14 @@ public class FrameBuffer implements DrawableShape {
 
     public void drawTexture(Point a, Point b, Point d) {
         Point c = new Point(d.x + b.x - a.x, b.y + d.y - a.y, b.z + d.z - a.z);
-        vertexes = new float[][]{
+        float[][] vertexes = new float[][]{
                 {a.x, a.y, a.z},
                 {d.x, d.y, d.z},
                 {b.x, b.y, b.z},
                 {c.x, c.y, c.z}
         };
 
-        textCoords = new float[][]{
+        float[][] textCoords = new float[][]{
                 {0, 0},
                 {0, 1},
                 {1, 0},
