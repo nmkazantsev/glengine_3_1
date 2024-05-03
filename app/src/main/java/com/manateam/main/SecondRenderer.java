@@ -102,9 +102,6 @@ public class SecondRenderer implements GamePageInterface {
         applyCameraSettings(cameraSettings);
         applyProjectionMatrix(projectionMatrixSettings);
         mMatrix = resetTranslateMatrix(mMatrix);
-        //Matrix.rotateM(mMatrix, 0, map(millis() % 10000, 0, 10000, 0, 360), 1, 0.5f, 0);
-        // Matrix.translateM(mMatrix, 0, 0, -0f, 0);
-        // Matrix.scaleM(mMatrix, 0, 1.5f, 1.5f, 1.5f);
         applyMatrix(mMatrix);
         //connectFrameBuffer(fb.getFrameBuffer());
         s.prepareAndDraw();
