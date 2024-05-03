@@ -148,7 +148,7 @@ public class Poligon implements VerticleSet, DrawableShape {
         // помещаем текстуру в target 2D юнита 0
         glActiveTexture(GL_TEXTURE0);
         if (!postToGlNeeded) {
-            glBindTexture(GL_TEXTURE_2D, 6);
+            glBindTexture(GL_TEXTURE_2D, texture.getId());
         }
         if (postToGlNeeded) {
             postToGl();
