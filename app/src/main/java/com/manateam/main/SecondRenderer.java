@@ -90,9 +90,9 @@ public class SecondRenderer implements GamePageInterface {
         projectionMatrixSettings.resetFor3d();
         cameraSettings.eyeZ = 0f;
         cameraSettings.eyeX = 5f;
-        float x = 3.5f * Utils.sin(millis() / 1000.0f);
+        float x1 = 3.5f * Utils.sin(millis() / 1000.0f);
         cameraSettings.centerY = 0;
-        cameraSettings.centerZ = x;
+        cameraSettings.centerZ = x1;
        /* applyShader(skyBoxShader);
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
@@ -101,7 +101,6 @@ public class SecondRenderer implements GamePageInterface {
         //directedShadow.startRenderingDepthPass();
         applyShader(shader);
         glClearColor(1f, 1, 1, 1);
-        connectFrameBuffer(fb.getFrameBuffer());
         material.apply();
         applyCameraSettings(cameraSettings);
         applyProjectionMatrix(projectionMatrixSettings);
@@ -110,10 +109,10 @@ public class SecondRenderer implements GamePageInterface {
         // Matrix.translateM(mMatrix, 0, 0, -0f, 0);
         // Matrix.scaleM(mMatrix, 0, 1.5f, 1.5f, 1.5f);
         applyMatrix(mMatrix);
+        connectFrameBuffer(fb.getFrameBuffer());
         s.prepareAndDraw();
         connectDefaultFrameBuffer();
         //directedShadow.stopRenderingDepthPass();
-        //connectDefaultFrameBuffer();
         applyShader(shader);
         fpsPoligon.setRedrawNeeded(true);
         cameraSettings.resetFor2d();
@@ -125,7 +124,7 @@ public class SecondRenderer implements GamePageInterface {
         fpsPoligon.redrawParams.set(0, String.valueOf(fps));
         fpsPoligon.redrawNow();
         fpsPoligon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
-        fb.drawTexture(new Point(x,y, 2), new Point(0, y, 2), new Point(x, 0, 2));
+        fb.drawTexture(new Point(x / 3, y / 2, 1), new Point(2 * x / 3, y / 2, 1), new Point(x / 3, y, 1));
     }
 
     @Override

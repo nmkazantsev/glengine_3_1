@@ -16,9 +16,6 @@ import static com.seal.gl_engine.utils.Utils.x;
 import static com.seal.gl_engine.utils.Utils.y;
 
 import com.manateam.main.redrawFunctions.MainRedrawFunctions;
-import com.example.gl_engine_3_1.R;
-import com.manateam.main.adaptors.MainShaderAdaptor;
-import com.manateam.main.redrawFunctions.MainRedrawFunctions;
 import com.seal.gl_engine.GamePageInterface;
 import com.seal.gl_engine.OpenGLRenderer;
 import com.seal.gl_engine.default_adaptors.MainShaderAdaptor;
@@ -32,9 +29,7 @@ import com.seal.gl_engine.engine.main.verticles.Poligon;
 import com.seal.gl_engine.engine.main.verticles.Shape;
 import com.seal.gl_engine.engine.main.verticles.SimplePoligon;
 import com.seal.gl_engine.maths.Point;
-import com.example.gl_engine_3_1.R;
-import com.manateam.main.adaptors.MainShaderAdaptor;
-import com.manateam.main.redrawFunctions.MainRedrawFunctions;
+
 
 public class MainRenderer implements GamePageInterface {
     private final Poligon fpsPolygon;
@@ -48,9 +43,10 @@ public class MainRenderer implements GamePageInterface {
     boolean f = true;
 
     private FrameBuffer frameBuffer;
+
     public MainRenderer() {
         Animator.initialize();
-        shader = new Shader(R.raw.vertex_shader, R.raw.fragment_shader, this, new MainShaderAdaptor());
+        shader = new Shader(com.example.gl_engine.R.raw.vertex_shader,com.example.gl_engine.R.raw.fragment_shader, this, new MainShaderAdaptor());
         fpsPolygon = new Poligon(MainRedrawFunctions::redrawFps, true, 1, this);
         polygon = new Poligon(MainRedrawFunctions::redrawFps, true, 0, this);
         polygon.redrawNow();
@@ -102,7 +98,7 @@ public class MainRenderer implements GamePageInterface {
         fpsPolygon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
         polygon.prepareAndDraw(new Point(110 * kx, 0, 1), new Point(200 * kx, 0, 1), new Point(110 * kx, 100 * ky, 1));
         simplePolygon.prepareAndDraw(0, 300, 300, 300, 300, 0.01f);
-        frameBuffer.drawTexture(new Point(x / 3, y / 2,1), new Point(2 * x / 3, y / 2,1), new Point(x / 3, y,1));
+        frameBuffer.drawTexture(new Point(x / 3, y / 2, 1), new Point(2 * x / 3, y / 2, 1), new Point(x / 3, y, 1));
     }
 
     @Override
