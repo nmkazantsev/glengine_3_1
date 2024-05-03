@@ -8,9 +8,6 @@ import static com.seal.gl_engine.engine.config.MainConfigurationFunctions.applyC
 import static com.seal.gl_engine.engine.config.MainConfigurationFunctions.applyMatrix;
 import static com.seal.gl_engine.engine.config.MainConfigurationFunctions.applyProjectionMatrix;
 import static com.seal.gl_engine.engine.config.MainConfigurationFunctions.resetTranslateMatrix;
-import static com.seal.gl_engine.engine.main.frameBuffers.FrameBufferUtils.connectDefaultFrameBuffer;
-import static com.seal.gl_engine.engine.main.frameBuffers.FrameBufferUtils.connectFrameBuffer;
-import static com.seal.gl_engine.engine.main.frameBuffers.FrameBufferUtils.createFrameBuffer;
 import static com.seal.gl_engine.engine.main.shaders.Shader.applyShader;
 import static com.seal.gl_engine.utils.Utils.kx;
 import static com.seal.gl_engine.utils.Utils.ky;
@@ -28,7 +25,6 @@ import com.seal.gl_engine.default_adaptors.LightShaderAdaptor;
 import com.seal.gl_engine.default_adaptors.MainShaderAdaptor;
 import com.seal.gl_engine.engine.main.camera.CameraSettings;
 import com.seal.gl_engine.engine.main.camera.ProjectionMatrixSettings;
-import com.seal.gl_engine.engine.main.frameBuffers.FrameBuffer;
 import com.seal.gl_engine.engine.main.light.AmbientLight;
 import com.seal.gl_engine.engine.main.light.DirectedLight;
 import com.seal.gl_engine.engine.main.light.Material;
@@ -55,7 +51,7 @@ public class SecondRenderer implements GamePageInterface {
     private DirectedLight directedLight1;
     private Material material;
     private DirectedShadow directedShadow;
-    FrameBuffer fb;
+    // FrameBuffer fb;
 
 
     public SecondRenderer() {
@@ -79,8 +75,8 @@ public class SecondRenderer implements GamePageInterface {
 
         skyBox = new SkyBox("skybox/", "jpg", this);
         skyBoxShader = new Shader(com.example.gl_engine.R.raw.skybox_vertex, com.example.gl_engine.R.raw.skybox_fragment, this, new SkyBoxShaderAdaptor());
-        directedShadow = new DirectedShadow(this, 1024, 1024);
-        fb = createFrameBuffer((int) x, (int) y, this);
+        directedShadow = new DirectedShadow(this, (int)x, (int)y);
+        // fb = createFrameBuffer((int) x, (int) y, this);
     }
 
     @Override
@@ -98,10 +94,11 @@ public class SecondRenderer implements GamePageInterface {
         applyCameraSettings(cameraSettings);
         skyBox.prepareAndDraw();*/
 
-        //directedShadow.startRenderingDepthPass();
-        applyShader(shader);
+        //applyShader(shader);
         glClearColor(1f, 1, 1, 1);
         material.apply();
+
+        directedShadow.startRenderingDepthPass();
         applyCameraSettings(cameraSettings);
         applyProjectionMatrix(projectionMatrixSettings);
         mMatrix = resetTranslateMatrix(mMatrix);
@@ -109,10 +106,10 @@ public class SecondRenderer implements GamePageInterface {
         // Matrix.translateM(mMatrix, 0, 0, -0f, 0);
         // Matrix.scaleM(mMatrix, 0, 1.5f, 1.5f, 1.5f);
         applyMatrix(mMatrix);
-        connectFrameBuffer(fb.getFrameBuffer());
+        //connectFrameBuffer(fb.getFrameBuffer());
         s.prepareAndDraw();
-        connectDefaultFrameBuffer();
-        //directedShadow.stopRenderingDepthPass();
+        //connectDefaultFrameBuffer();
+        directedShadow.stopRenderingDepthPass();
         applyShader(shader);
         fpsPoligon.setRedrawNeeded(true);
         cameraSettings.resetFor2d();
@@ -124,7 +121,7 @@ public class SecondRenderer implements GamePageInterface {
         fpsPoligon.redrawParams.set(0, String.valueOf(fps));
         fpsPoligon.redrawNow();
         fpsPoligon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
-        fb.drawTexture(new Point(x / 3, y / 2, 1), new Point(2 * x / 3, y / 2, 1), new Point(x / 3, y, 1));
+        directedShadow.getDepthBuffer().drawTexture(new Point(x, y, 1), new Point(0, y, 1), new Point(x, 0, 1));
     }
 
     @Override
