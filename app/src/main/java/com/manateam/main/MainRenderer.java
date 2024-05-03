@@ -99,7 +99,7 @@ public class MainRenderer implements GamePageInterface {
 
     @Override
     public void touchStarted() {
-        OpenGLRenderer.startNewPage(new SkyBoxDemo());
+        OpenGLRenderer.startNewPage(new SecondRenderer());
     }
 
     @Override
