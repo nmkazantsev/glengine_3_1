@@ -95,7 +95,7 @@ public class Poligon implements VerticleSet, DrawableShape {
                         new Point(textCoords[1][0], textCoords[1][1]),
                         new Point(textCoords[2][0], textCoords[2][1]),
                 },
-                new Point(0, 0, 1));
+                new Point(0, 0, 1));//normal
         face2 = new Face(
                 new Point[]{
                 new Point(vertexes[1][0], vertexes[1][1], vertexes[1][2]),
@@ -148,7 +148,7 @@ public class Poligon implements VerticleSet, DrawableShape {
         // помещаем текстуру в target 2D юнита 0
         glActiveTexture(GL_TEXTURE0);
         if (!postToGlNeeded) {
-            glBindTexture(GL_TEXTURE_2D, texture.getId());
+            glBindTexture(GL_TEXTURE_2D, 6);
         }
         if (postToGlNeeded) {
             postToGl();
