@@ -67,8 +67,8 @@ public class DirectedShadow {
     }
 
     public void stopRenderingDepthPass() {
-        connectDefaultFrameBuffer();
         glViewport(0, 0, (int) x, (int) y);
+        connectDefaultFrameBuffer();
     }
 
     public FrameBuffer getDepthBuffer() {
