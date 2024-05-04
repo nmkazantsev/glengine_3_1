@@ -16,6 +16,7 @@ import static com.seal.gl_engine.utils.Utils.x;
 import static com.seal.gl_engine.utils.Utils.y;
 
 import android.opengl.GLES30;
+import android.opengl.Matrix;
 import android.util.Log;
 
 import com.manateam.main.redrawFunctions.MainRedrawFunctions;
@@ -42,7 +43,7 @@ public class SecondRenderer implements GamePageInterface {
     private final Shader shader, lightShader;
     private final ProjectionMatrixSettings projectionMatrixSettings;
     private final CameraSettings cameraSettings;
-    private final Shape s;
+    private final Shape ponchik, cube;
     private SourceLight sourceLight;
     private final AmbientLight ambientLight;
     private DirectedLight directedLight1;
@@ -58,8 +59,10 @@ public class SecondRenderer implements GamePageInterface {
         cameraSettings = new CameraSettings(x, y);
         cameraSettings.resetFor3d();
         projectionMatrixSettings = new ProjectionMatrixSettings(x, y);
-        s = new Shape("ponchik.obj", "texture.png", this);
-        s.addNormalMap("noral_tex.png");
+
+        ponchik = new Shape("ponchik.obj", "texture.png", this);
+        ponchik.addNormalMap("noral_tex.png");
+        cube = new Shape("cube.obj", "cube.png", this);
 
         ambientLight = new AmbientLight(this);
         ambientLight.color = new Vec3(0.6f);
@@ -70,28 +73,30 @@ public class SecondRenderer implements GamePageInterface {
         material.diffuse = new Vec3(1);
         material.shininess = 1.1f;
 
-        directedShadow = new DirectedShadow(this, (int) x, (int) y);
+        directedLight1=new DirectedLight(this );
+        directedLight1.direction=new Vec3(1);
+        directedLight1.color=new Vec3(1);
+        directedLight1.diffuse=0.8f;
+        directedLight1.specular=0.3f;
+
+        directedShadow = new DirectedShadow(this, (int) x, (int) y,directedLight1);
     }
 
     @Override
     public void draw() {
         GLES30.glDisable(GL_BLEND);
         cameraSettings.resetFor3d();
-        projectionMatrixSettings.resetFor3d();
         cameraSettings.eyeZ = 0f;
-        cameraSettings.eyeX = 5f;
-        float x1 = 3.5f * Utils.sin(millis() / 1000.0f);
+        cameraSettings.eyeY = 4;
+        cameraSettings.eyeX = 2.5f;
         cameraSettings.centerY = 0;
-        cameraSettings.centerZ = x1;
+        cameraSettings.centerZ = 3.5f;
+
 
         glClearColor(1f, 1, 1, 1);
 
         directedShadow.startRenderingDepthPass();
-        applyCameraSettings(cameraSettings);
-        applyProjectionMatrix(projectionMatrixSettings, false);
-        mMatrix = resetTranslateMatrix(mMatrix);
-        applyMatrix(mMatrix);
-        s.prepareAndDraw();
+        drawScene();
         directedShadow.stopRenderingDepthPass();
 
         applyShader(shader);
@@ -106,6 +111,17 @@ public class SecondRenderer implements GamePageInterface {
         fpsPoligon.redrawNow();
         fpsPoligon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
         directedShadow.getDepthBuffer().drawTexture(new Point(x, y, 1), new Point(0, y, 1), new Point(x, 0, 1));
+    }
+
+    private void drawScene() {
+        mMatrix = resetTranslateMatrix(mMatrix);
+        Matrix.translateM(mMatrix, 0, 0, 3, 0);
+        applyMatrix(mMatrix);
+        ponchik.prepareAndDraw();
+        mMatrix = resetTranslateMatrix(mMatrix);
+        Matrix.scaleM(mMatrix, 0, 10, 0.2f, 10);
+        applyMatrix(mMatrix);
+        cube.prepareAndDraw();
     }
 
     @Override
