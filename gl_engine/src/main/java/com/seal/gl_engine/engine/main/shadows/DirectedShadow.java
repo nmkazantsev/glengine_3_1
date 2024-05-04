@@ -33,35 +33,31 @@ public class DirectedShadow {
     private final float multCoeff = 10;
     private int width, height;
 
-    public DirectedShadow(GamePageInterface gamePageInterface, int shadowWidth, int shadowHeight, DirectedLight lightSource) {
+    public DirectedShadow(GamePageInterface gamePageInterface, int shadowWidth, int shadowHeight, DirectedLight lightSource, Shader s) {
         cameraSettings = new CameraSettings(shadowWidth, shadowHeight);
         projectionMatrixSettings = new ProjectionMatrixSettings(shadowWidth, shadowHeight);
         this.creator = gamePageInterface;
         depthBuffer = createFrameBuffer(shadowWidth, shadowHeight, creator);
-        depthShader = new Shader(R.raw.vertex_shader, R.raw.fragment_depth_shader, creator, new MainShaderAdaptor());
+        depthShader = null;//new Shader(R.raw.vertex_shader, R.raw.fragment_shader, creator, new MainShaderAdaptor());
         this.directedLight = lightSource;
         this.width = shadowWidth;
         this.height = shadowHeight;
+        this.depthShader = s;
     }
 
     public void startRenderingDepthPass() {
         cameraSettings.resetFor3d();
-        cameraSettings.centerX = cameraSettings.centerY = cameraSettings.centerZ = 0;
-        cameraSettings.eyeX = directedLight.direction.x * multCoeff;
-        cameraSettings.eyeY = directedLight.direction.y * multCoeff;
-        cameraSettings.eyeZ = directedLight.direction.z * multCoeff;
+        cameraSettings.eyeZ = 0f;
+        cameraSettings.eyeY = 4;
+        cameraSettings.eyeX = 2.5f;
+        cameraSettings.centerY = 0;
+        cameraSettings.centerZ = 0;
+        projectionMatrixSettings.resetFor3d();
 
-        projectionMatrixSettings.resetFor2d();
-        projectionMatrixSettings.left = -10f;
-        projectionMatrixSettings.right = 10f;
-        projectionMatrixSettings.bottom = -10f;
-        projectionMatrixSettings.top = 10f;
-        projectionMatrixSettings.near = 0.1f;
-        projectionMatrixSettings.far = 20;
 
-        applyShader(depthShader);
-        applyCameraSettings(cameraSettings);
-        applyProjectionMatrix(projectionMatrixSettings, false); //go to light space view
+        //applyShader(depthShader);
+       // applyCameraSettings(cameraSettings);
+        //applyProjectionMatrix(projectionMatrixSettings, true); //go to light space view
         glViewport(0, 0, width, height);
         connectFrameBuffer(depthBuffer.getFrameBuffer());
     }
