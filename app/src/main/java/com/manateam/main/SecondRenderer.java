@@ -109,15 +109,15 @@ public class SecondRenderer implements GamePageInterface {
         glClearColor(1f, 1, 1, 1);
 
         //  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      //  directedShadow.startRenderingDepthPass();
-        applyShader(shader);
+        //  directedShadow.startRenderingDepthPass();
+       // applyShader(shader);
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
         drawScene(1);
-       // directedShadow.stopRenderingDepthPass();
+        // directedShadow.stopRenderingDepthPass();
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        applyShader(lightShader);
+       // applyShader(lightShader);
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
         material.apply();
@@ -132,7 +132,7 @@ public class SecondRenderer implements GamePageInterface {
         mMatrix = resetTranslateMatrix(mMatrix);
         applyMatrix(mMatrix);
         fpsPoligon.redrawParams.set(0, String.valueOf(fps));
-       fpsPoligon.redrawNow();
+        fpsPoligon.redrawNow();
         fpsPoligon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
         directedShadow.getDepthBuffer().drawTexture(new Point(x, y / 2, 1), new Point(x / 2, y / 2, 1), new Point(x, y, 1));
     }
@@ -141,14 +141,14 @@ public class SecondRenderer implements GamePageInterface {
         Matrix.rotateM(mMatrix, 0, 90, 0, 0, 1);
         Matrix.scaleM(mMatrix, 0, 0.2f, 10, 10);
         applyMatrix(mMatrix);
-        cube.prepareAndDraw();
+       // cube.prepareAndDraw();
         mMatrix = resetTranslateMatrix(mMatrix);
-        Matrix.translateM(mMatrix, 0, 0, 1.5f+x, 0);
+        Matrix.translateM(mMatrix, 0, 0, 1.5f + x, 0);
         applyMatrix(mMatrix);
-        if(x==1) {
+        if (x == 1) {
             ponchik.prepareAndDraw();
-        }else{
-            p2.prepareAndDraw();
+        } else {
+            //p2.prepareAndDraw();
         }
         mMatrix = resetTranslateMatrix(mMatrix);
     }
