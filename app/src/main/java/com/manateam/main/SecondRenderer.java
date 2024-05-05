@@ -110,17 +110,19 @@ public class SecondRenderer implements GamePageInterface {
 
         //  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //  directedShadow.startRenderingDepthPass();
-       // applyShader(shader);
+        applyShader(lightShader);
+        material.apply();
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
         drawScene(1);
         // directedShadow.stopRenderingDepthPass();
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-       // applyShader(lightShader);
+       applyShader(shader);
+        material.apply();
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
-        material.apply();
+
         drawScene(2);
 
         applyShader(shader);
@@ -148,7 +150,7 @@ public class SecondRenderer implements GamePageInterface {
         if (x == 1) {
             ponchik.prepareAndDraw();
         } else {
-            //p2.prepareAndDraw();
+            ponchik.prepareAndDraw();
         }
         mMatrix = resetTranslateMatrix(mMatrix);
     }

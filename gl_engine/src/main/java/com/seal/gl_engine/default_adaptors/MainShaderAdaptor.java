@@ -138,7 +138,7 @@ public class MainShaderAdaptor extends Adaptor {
         aPositionLocation = glGetAttribLocation(programId, "aPos");
         aTextureLocation = glGetAttribLocation(programId, "aTexCoord");
         normalLocation = glGetAttribLocation(programId, "normal");
-        uTextureUnitLocation = glGetUniformLocation(programId, "u_TextureUnit");
+        uTextureUnitLocation = glGetUniformLocation(programId, "textureSamp");
         projectionMatrixLoation = GLES30.glGetUniformLocation(programId, "projection");
         viewMatrixLocation = GLES30.glGetUniformLocation(programId, "view");
         modelMtrixLocation = GLES30.glGetUniformLocation(programId, "model");

@@ -137,6 +137,7 @@ public class Shape implements VerticleSet, DrawableShape {
         }
         // юнит текстуры
         glUniform1i(Shader.getActiveShader().getAdaptor().getTextureLocation(), 0);
+        int l=Shader.getActiveShader().getAdaptor().getTextureLocation();
 
         // помещаем текстуру в target 2D юнита 0
         glActiveTexture(GL_TEXTURE1);
@@ -153,7 +154,7 @@ public class Shape implements VerticleSet, DrawableShape {
         if (normalTexture != null) {
             GLES30.glUniform1i(Shader.getActiveShader().getAdaptor().getNormalMapEnableLocation(), 1);
         } else {
-            GLES30.glUniform1i(Shader.getActiveShader().getAdaptor().getNormalMapEnableLocation(), 0);
+            GLES30.glUniform1i(Shader.getActiveShader().getAdaptor().getNormalMapEnableLocation(), -1);
         }
         postToGlNeeded = false;
     }

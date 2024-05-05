@@ -186,7 +186,7 @@ public class LightShaderAdaptor extends Adaptor {
         normalLocation = glGetAttribLocation(programId, "normalVec");
         tangetntLocation = glGetAttribLocation(programId, "aT");
         bitangentLocation = glGetAttribLocation(programId, "aB");
-        uTextureUnitLocation = glGetUniformLocation(programId, "u_TextureUnit");
+        uTextureUnitLocation = glGetUniformLocation(programId, "textureSamp");
         normalMapLocation = glGetUniformLocation(programId, "normalMap");
         projectionMatrixLoation = GLES30.glGetUniformLocation(programId, "projection");
         viewMatrixLocation = GLES30.glGetUniformLocation(programId, "view");
