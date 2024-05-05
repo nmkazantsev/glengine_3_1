@@ -137,7 +137,6 @@ public class Shape implements VerticleSet, DrawableShape {
         }
         // юнит текстуры
         glUniform1i(Shader.getActiveShader().getAdaptor().getTextureLocation(), 0);
-        int l=Shader.getActiveShader().getAdaptor().getTextureLocation();
 
         // помещаем текстуру в target 2D юнита 0
         glActiveTexture(GL_TEXTURE1);

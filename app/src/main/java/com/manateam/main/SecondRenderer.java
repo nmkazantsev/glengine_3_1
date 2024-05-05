@@ -110,7 +110,7 @@ public class SecondRenderer implements GamePageInterface {
 
         //  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //  directedShadow.startRenderingDepthPass();
-        applyShader(lightShader);
+        applyShader(shader);
         material.apply();
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
@@ -118,7 +118,7 @@ public class SecondRenderer implements GamePageInterface {
         // directedShadow.stopRenderingDepthPass();
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-       applyShader(shader);
+        applyShader(lightShader);
         material.apply();
         applyProjectionMatrix(projectionMatrixSettings);
         applyCameraSettings(cameraSettings);
@@ -143,7 +143,7 @@ public class SecondRenderer implements GamePageInterface {
         Matrix.rotateM(mMatrix, 0, 90, 0, 0, 1);
         Matrix.scaleM(mMatrix, 0, 0.2f, 10, 10);
         applyMatrix(mMatrix);
-       // cube.prepareAndDraw();
+        // cube.prepareAndDraw();
         mMatrix = resetTranslateMatrix(mMatrix);
         Matrix.translateM(mMatrix, 0, 0, 1.5f + x, 0);
         applyMatrix(mMatrix);
