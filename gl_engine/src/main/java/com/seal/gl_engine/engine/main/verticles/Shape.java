@@ -153,7 +153,7 @@ public class Shape implements VerticleSet, DrawableShape {
         if (normalTexture != null) {
             GLES30.glUniform1i(Shader.getActiveShader().getAdaptor().getNormalMapEnableLocation(), 1);
         } else {
-            GLES30.glUniform1i(Shader.getActiveShader().getAdaptor().getNormalMapEnableLocation(), 0);
+            GLES30.glUniform1i(Shader.getActiveShader().getAdaptor().getNormalMapEnableLocation(), -1);
         }
         postToGlNeeded = false;
     }
