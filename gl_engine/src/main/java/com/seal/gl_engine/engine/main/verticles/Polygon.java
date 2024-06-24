@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.function.Function;
 
 //это 3д glShape так теперь называется)
-public class Poligon implements VerticleSet, DrawableShape {
+public class Polygon implements VerticleSet, DrawableShape {
     private Face face1;
     private Face face2;
     private boolean saveMemory;
@@ -39,7 +39,7 @@ public class Poligon implements VerticleSet, DrawableShape {
     private Function<List<Object>, PImage> redrawFunction;
 
 
-    public Poligon(Function<List<Object>, PImage> redrawFunction, boolean saveMemory, int paramSize, GamePageInterface page) {
+    public Polygon(Function<List<Object>, PImage> redrawFunction, boolean saveMemory, int paramSize, GamePageInterface page) {
         this.redrawFunction = redrawFunction;
         VectriesShapesManager.allShapes.add(new WeakReference<>(this));//добавить ссылку на Poligon
         texture = new Texture(page);
@@ -62,7 +62,7 @@ public class Poligon implements VerticleSet, DrawableShape {
         }
     }
 
-    public void prepareData(Point a, Point b, Point d) {
+    protected void prepareData(Point a, Point b, Point d) {
         /*
         a-----b
         |     |

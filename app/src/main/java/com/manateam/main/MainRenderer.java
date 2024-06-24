@@ -21,19 +21,19 @@ import com.seal.gl_engine.engine.main.camera.CameraSettings;
 import com.seal.gl_engine.engine.main.camera.ProjectionMatrixSettings;
 import com.seal.gl_engine.engine.main.engine_object.EnObject;
 import com.seal.gl_engine.engine.main.shaders.Shader;
-import com.seal.gl_engine.engine.main.verticles.Poligon;
+import com.seal.gl_engine.engine.main.verticles.Polygon;
 import com.seal.gl_engine.engine.main.verticles.Shape;
-import com.seal.gl_engine.engine.main.verticles.SimplePoligon;
+import com.seal.gl_engine.engine.main.verticles.SimplePolygon;
 import com.seal.gl_engine.maths.Point;
 
 
 public class MainRenderer implements GamePageInterface {
-    private final Poligon fpsPolygon;
-    private final Poligon polygon;
+    private final Polygon fpsPolygon;
+    private final Polygon polygon;
     private final Shader shader;
     private final ProjectionMatrixSettings projectionMatrixSettings;
     private final CameraSettings cameraSettings;
-    private static SimplePoligon simplePolygon;
+    private static SimplePolygon simplePolygon;
     private final EnObject s;
     private Shape s2;
     boolean f = true;
@@ -43,14 +43,14 @@ public class MainRenderer implements GamePageInterface {
     public MainRenderer() {
         Animator.initialize();
         shader = new Shader(com.example.gl_engine.R.raw.vertex_shader,com.example.gl_engine.R.raw.fragment_shader, this, new MainShaderAdaptor());
-        fpsPolygon = new Poligon(MainRedrawFunctions::redrawFps, true, 1, this);
-        polygon = new Poligon(MainRedrawFunctions::redrawFps, true, 0, this);
+        fpsPolygon = new Polygon(MainRedrawFunctions::redrawFps, true, 1, this);
+        polygon = new Polygon(MainRedrawFunctions::redrawFps, true, 0, this);
         polygon.redrawNow();
         cameraSettings = new CameraSettings(x, y);
         cameraSettings.resetFor3d();
         projectionMatrixSettings = new ProjectionMatrixSettings(x, y);
         if (simplePolygon == null) {
-            simplePolygon = new SimplePoligon(MainRedrawFunctions::redrawBox2, true, 0, null);
+            simplePolygon = new SimplePolygon(MainRedrawFunctions::redrawBox2, true, 0, null);
             simplePolygon.redrawNow();
         }
         s = new EnObject(new Shape("tank.obj", "cube.png", this));

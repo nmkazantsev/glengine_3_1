@@ -31,14 +31,14 @@ import com.seal.gl_engine.engine.main.light.Material;
 import com.seal.gl_engine.engine.main.light.SourceLight;
 import com.seal.gl_engine.engine.main.shaders.Shader;
 import com.seal.gl_engine.engine.main.shadows.DirectedShadow;
-import com.seal.gl_engine.engine.main.verticles.Poligon;
+import com.seal.gl_engine.engine.main.verticles.Polygon;
 import com.seal.gl_engine.engine.main.verticles.Shape;
 import com.seal.gl_engine.maths.Point;
 import com.seal.gl_engine.maths.Vec3;
 import com.seal.gl_engine.utils.Utils;
 
 public class SecondRenderer implements GamePageInterface {
-    private final Poligon fpsPoligon;
+    private final Polygon fpsPolygon;
     private final Shader shader, lightShader;
     private final ProjectionMatrixSettings projectionMatrixSettings;
     private final CameraSettings cameraSettings;
@@ -54,7 +54,7 @@ public class SecondRenderer implements GamePageInterface {
     public SecondRenderer() {
         shader = new Shader(com.example.gl_engine.R.raw.vertex_shader, com.example.gl_engine.R.raw.fragment_shader, this, new MainShaderAdaptor());
         lightShader = new Shader(com.example.gl_engine.R.raw.vertex_shader_light, com.example.gl_engine.R.raw.fragment_shader_light, this, new LightShaderAdaptor());
-        fpsPoligon = new Poligon(MainRedrawFunctions::redrawFps, true, 1, this);
+        fpsPolygon = new Polygon(MainRedrawFunctions::redrawFps, true, 1, this);
         cameraSettings = new CameraSettings(x, y);
         cameraSettings.resetFor3d();
         projectionMatrixSettings = new ProjectionMatrixSettings(x, y);
@@ -95,16 +95,16 @@ public class SecondRenderer implements GamePageInterface {
         directedShadow.stopRenderingDepthPass();
 
         applyShader(shader);
-        fpsPoligon.setRedrawNeeded(true);
+        fpsPolygon.setRedrawNeeded(true);
         cameraSettings.resetFor2d();
         projectionMatrixSettings.resetFor2d();
         applyProjectionMatrix(projectionMatrixSettings, false);
         applyCameraSettings(cameraSettings);
         mMatrix = resetTranslateMatrix(mMatrix);
         applyMatrix(mMatrix);
-        fpsPoligon.redrawParams.set(0, String.valueOf(fps));
-        fpsPoligon.redrawNow();
-        fpsPoligon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
+        fpsPolygon.redrawParams.set(0, String.valueOf(fps));
+        fpsPolygon.redrawNow();
+        fpsPolygon.prepareAndDraw(new Point(0 * kx, 0, 1), new Point(100 * kx, 0, 1), new Point(0 * kx, 100 * ky, 1));
         directedShadow.getDepthBuffer().drawTexture(new Point(x, y, 1), new Point(0, y, 1), new Point(x, 0, 1));
     }
 

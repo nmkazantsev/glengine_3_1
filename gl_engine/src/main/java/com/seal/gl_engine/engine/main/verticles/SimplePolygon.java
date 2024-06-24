@@ -8,8 +8,8 @@ import com.seal.gl_engine.engine.main.images.PImage;
 import java.util.List;
 import java.util.function.Function;
 
-public class SimplePoligon extends Poligon {
-    public SimplePoligon(Function<List<Object>, PImage> redrawFunction, boolean saveMemory, int paramSize, GamePageInterface page) {
+public class SimplePolygon extends Polygon {
+    public SimplePolygon(Function<List<Object>, PImage> redrawFunction, boolean saveMemory, int paramSize, GamePageInterface page) {
         super(redrawFunction, saveMemory, paramSize, page);
     }
 
